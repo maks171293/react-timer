@@ -108,9 +108,17 @@
 
 	var _Main2 = _interopRequireDefault(_Main);
 
-	__webpack_require__(230);
+	var _Timer = __webpack_require__(237);
 
-	__webpack_require__(234);
+	var _Timer2 = _interopRequireDefault(_Timer);
+
+	var _Countdown = __webpack_require__(238);
+
+	var _Countdown2 = _interopRequireDefault(_Countdown);
+
+	__webpack_require__(231);
+
+	__webpack_require__(235);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -119,7 +127,12 @@
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
 	  { history: _reactRouter.hashHistory },
-	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Main2.default })
+	  _react2.default.createElement(
+	    _reactRouter.Route,
+	    { path: '/', component: _Main2.default },
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Timer2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/countdown', component: _Countdown2.default })
+	  )
 	), document.getElementById('app'));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
@@ -25489,7 +25502,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Navigation = __webpack_require__(236);
+	var _Navigation = __webpack_require__(230);
 
 	var _Navigation2 = _interopRequireDefault(_Navigation);
 
@@ -25519,13 +25532,92 @@
 /* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(166);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Navigation = _react2.default.createClass({
+	  displayName: 'Navigation',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'top-bar' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'top-bar-left' },
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'menu' },
+	          _react2.default.createElement(
+	            'li',
+	            { className: 'menu-text' },
+	            'React Timer App'
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            _react2.default.createElement(
+	              _reactRouter.IndexLink,
+	              { to: '/', activeClassName: 'active-link', activeStyle: { fontWeight: 'bold' } },
+	              'Timer'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/countdown', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	              'Countdown'
+	            )
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'top-bar-right' },
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'menu' },
+	          _react2.default.createElement(
+	            'li',
+	            { className: 'menu-text' },
+	            'Created by ',
+	            _react2.default.createElement(
+	              'a',
+	              { href: '#', target: '_blank' },
+	              'Maks Andreev'
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	exports.default = Navigation;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(231);
+	var content = __webpack_require__(232);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(233)(content, {});
+	var update = __webpack_require__(234)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25542,10 +25634,10 @@
 	}
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(232)();
+	exports = module.exports = __webpack_require__(233)();
 	// imports
 
 
@@ -25556,7 +25648,7 @@
 
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports) {
 
 	/*
@@ -25612,7 +25704,7 @@
 
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25864,16 +25956,16 @@
 
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(235);
+	var content = __webpack_require__(236);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(233)(content, {});
+	var update = __webpack_require__(234)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25890,10 +25982,10 @@
 	}
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(232)();
+	exports = module.exports = __webpack_require__(233)();
 	// imports
 
 
@@ -25904,7 +25996,7 @@
 
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25917,70 +26009,49 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(166);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Navigation = _react2.default.createClass({
-	  displayName: 'Navigation',
+	var Timer = _react2.default.createClass({
+	  displayName: 'Timer',
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'top-bar' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'top-bar-left' },
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'menu' },
-	          _react2.default.createElement(
-	            'li',
-	            { className: 'menu-text' },
-	            'React Timer App'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            _react2.default.createElement(
-	              _reactRouter.IndexLink,
-	              { to: '/', activeClassName: 'active-link', activeStyle: { fontWeight: 'bold' } },
-	              'Timer'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	              'Countdown'
-	            )
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'top-bar-right' },
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'menu' },
-	          _react2.default.createElement(
-	            'li',
-	            { className: 'menu-text' },
-	            'Created by ',
-	            _react2.default.createElement(
-	              'a',
-	              { href: '#', target: '_blank' },
-	              'Maks Andreev'
-	            )
-	          )
-	        )
-	      )
+	      null,
+	      'Timer'
 	    );
 	  }
 	});
 
-	exports.default = Navigation;
+	exports.default = Timer;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Countdown = _react2.default.createClass({
+	  displayName: 'Countdown',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      'Countdown'
+	    );
+	  }
+	});
+
+	exports.default = Countdown;
 
 /***/ }
 /******/ ]);
