@@ -1,5 +1,5 @@
-import React from 'react';
-import Navigation from 'Navigation';
+var React =require('react');
+var Navigation =require('Navigation');
 
 let Main = (props) => {
   return(
@@ -14,4 +14,4 @@ let Main = (props) => {
   )
 };
 
-export default Main;
+module.exports = Main;

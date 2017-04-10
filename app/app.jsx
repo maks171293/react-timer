@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import Main from 'Main';
 import Timer from 'Timer';
-import Countdown from 'Countdown';
+var Countdown = require('Countdown');
 
 import 'style!css!foundation-sites/dist/css/foundation.min.css';
 $(document).foundation();

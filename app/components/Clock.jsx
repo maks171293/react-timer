@@ -1,6 +1,6 @@
-import React from 'react';
+var React = require('react');
 
-const Clock = React.createClass({
+var Clock = React.createClass({
   getDefaultProps: function(){
     totalSeconds: 0
   },
@@ -18,7 +18,7 @@ const Clock = React.createClass({
     }
     return minutes + ':' + seconds
   },
-  render(){
+  render: function(){
     let {totalSeconds} = this.props;
     return (
       <div className='clock'>

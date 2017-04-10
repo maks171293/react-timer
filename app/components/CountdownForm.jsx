@@ -1,4 +1,4 @@
-import React from 'react';
+var React =require('react');
 
 var CountdownForm = React.createClass({
   onSubmit: function(e){
@@ -14,11 +14,11 @@ var CountdownForm = React.createClass({
       <div>
         <form ref="form" name="countForm" onSubmit={this.onSubmit} className="countdown-form" >
           <input type='text' ref="seconds" placeholder='Enter time in seconds'/>
-          <button className="button expanded"></button>
+          <button className="button expanded">Start</button>
         </form>
       </div>
     );
   }
 });
 
-export default CountdownForm;
+module.exports = CountdownForm;

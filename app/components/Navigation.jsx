@@ -1,5 +1,5 @@
-import React from 'react';
-import {Link, IndexLink} from 'react-router';
+var React = require('react');
+var {Link, IndexLink} = require('react-router');
 
 const Navigation = React.createClass({
   render(){
@@ -23,5 +23,4 @@ const Navigation = React.createClass({
     );
   }
 });
-
-export default Navigation;
+module.exports = Navigation;
