@@ -112,13 +112,13 @@
 
 	var _Timer2 = _interopRequireDefault(_Timer);
 
-	__webpack_require__(232);
+	__webpack_require__(234);
 
-	__webpack_require__(236);
+	__webpack_require__(238);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Countdown = __webpack_require__(238);
+	var Countdown = __webpack_require__(240);
 
 	$(document).foundation();
 
@@ -25600,15 +25600,71 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Clock = __webpack_require__(232);
+
+	var _Clock2 = _interopRequireDefault(_Clock);
+
+	var _TimerControls = __webpack_require__(233);
+
+	var _TimerControls2 = _interopRequireDefault(_TimerControls);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Timer = _react2.default.createClass({
 	  displayName: 'Timer',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      timer: 0,
+	      timerStatus: 'stopped'
+	    };
+	  },
+	  componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+	    if (this.state.timerStatus !== prevState.timerStatus) {
+	      switch (this.state.timerStatus) {
+	        case 'started':
+	          this.startTimer();
+	          break;
+	        case 'stopped':
+	          this.setState({ timer: 0 });
+	        case 'paused':
+	          clearInterval(this.timer);
+	          this.timer = undefined;
+	      }
+	    }
+	  },
+	  ComponentWillUnmount: function ComponentWillUnmount() {
+	    clearInterval(this.timer);
+	    this.timer = undefined;
+	  },
+	  startTimer: function startTimer() {
+	    var _this = this;
+
+	    this.timer = setInterval(function () {
+	      var newTimer = _this.state.timer + 1;
+	      _this.setState({ timer: newTimer });
+	    }, 1000);
+	  },
+	  onStatusChange: function onStatusChange(newStatus) {
+	    this.setState({
+	      timerStatus: newStatus
+	    });
+	  },
 	  render: function render() {
+	    var _state = this.state,
+	        timer = _state.timer,
+	        timerStatus = _state.timerStatus;
+
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      'Timer'
+	      _react2.default.createElement(
+	        'h1',
+	        { className: 'page-title' },
+	        'Timer App'
+	      ),
+	      _react2.default.createElement(_Clock2.default, { totalSeconds: timer }),
+	      _react2.default.createElement(_TimerControls2.default, { timerStatus: timerStatus, onStatusChange: this.onStatusChange })
 	    );
 	  }
 	});
@@ -25619,13 +25675,116 @@
 /* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var Clock = React.createClass({
+	  displayName: 'Clock',
+
+	  getDefaultProps: function getDefaultProps() {
+	    totalSeconds: 0;
+	  },
+	  propTypes: {
+	    totalSeconds: React.PropTypes.number
+	  },
+	  formatSeconds: function formatSeconds(totalSeconds) {
+	    var seconds = totalSeconds % 60;
+	    var minutes = Math.floor(totalSeconds / 60);
+	    if (seconds < 10) {
+	      seconds = '0' + seconds;
+	    }
+	    if (minutes < 10) {
+	      minutes = '0' + minutes;
+	    }
+	    return minutes + ':' + seconds;
+	  },
+	  render: function render() {
+	    var totalSeconds = this.props.totalSeconds;
+
+	    return React.createElement(
+	      'div',
+	      { className: 'clock' },
+	      React.createElement(
+	        'span',
+	        { className: 'clock-text' },
+	        this.formatSeconds(totalSeconds)
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Clock;
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var TimerForm = React.createClass({
+	  displayName: 'TimerForm',
+
+	  propTypes: {
+	    timerStatus: React.PropTypes.string.isRequired,
+	    onStatusChange: React.PropTypes.func.isRequired
+	  },
+	  handleStatusChange: function handleStatusChange(newStatus) {
+	    var _this = this;
+
+	    return function () {
+	      _this.props.onStatusChange(newStatus);
+	    };
+	  },
+	  render: function render() {
+	    var _this2 = this;
+
+	    var timerStatus = this.props.timerStatus;
+
+
+	    var renderTimerControls = function renderTimerControls() {
+	      if (timerStatus === 'started') {
+	        return React.createElement(
+	          'button',
+	          { className: 'button', onClick: _this2.handleStatusChange('paused') },
+	          'Pause'
+	        );
+	      } else {
+	        return React.createElement(
+	          'button',
+	          { className: 'button', onClick: _this2.handleStatusChange('started') },
+	          'Start'
+	        );
+	      }
+	    };
+	    return React.createElement(
+	      'div',
+	      { className: 'controls' },
+	      renderTimerControls(),
+	      React.createElement(
+	        'button',
+	        { className: 'button alert', onClick: this.handleStatusChange('stopped') },
+	        'Stop'
+	      )
+	    );
+	  }
+	});
+
+	module.exports = TimerForm;
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(233);
+	var content = __webpack_require__(235);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(235)(content, {});
+	var update = __webpack_require__(237)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25642,10 +25801,10 @@
 	}
 
 /***/ },
-/* 233 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(234)();
+	exports = module.exports = __webpack_require__(236)();
 	// imports
 
 
@@ -25656,7 +25815,7 @@
 
 
 /***/ },
-/* 234 */
+/* 236 */
 /***/ function(module, exports) {
 
 	/*
@@ -25712,7 +25871,7 @@
 
 
 /***/ },
-/* 235 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25964,16 +26123,16 @@
 
 
 /***/ },
-/* 236 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(237);
+	var content = __webpack_require__(239);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(235)(content, {});
+	var update = __webpack_require__(237)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25990,10 +26149,10 @@
 	}
 
 /***/ },
-/* 237 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(234)();
+	exports = module.exports = __webpack_require__(236)();
 	// imports
 
 
@@ -26004,15 +26163,15 @@
 
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(8);
-	var Clock = __webpack_require__(239);
-	var CountdownForm = __webpack_require__(240);
-	var Controls = __webpack_require__(241);
+	var Clock = __webpack_require__(232);
+	var CountdownForm = __webpack_require__(241);
+	var Controls = __webpack_require__(242);
 
 	var Countdown = React.createClass({
 	  displayName: 'Countdown',
@@ -26098,52 +26257,7 @@
 	module.exports = Countdown;
 
 /***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(8);
-
-	var Clock = React.createClass({
-	  displayName: 'Clock',
-
-	  getDefaultProps: function getDefaultProps() {
-	    totalSeconds: 0;
-	  },
-	  propTypes: {
-	    totalSeconds: React.PropTypes.number
-	  },
-	  formatSeconds: function formatSeconds(totalSeconds) {
-	    var seconds = totalSeconds % 60;
-	    var minutes = Math.floor(totalSeconds / 60);
-	    if (seconds < 10) {
-	      seconds = '0' + seconds;
-	    }
-	    if (minutes < 10) {
-	      minutes = '0' + minutes;
-	    }
-	    return minutes + ':' + seconds;
-	  },
-	  render: function render() {
-	    var totalSeconds = this.props.totalSeconds;
-
-	    return React.createElement(
-	      'div',
-	      { className: 'clock' },
-	      React.createElement(
-	        'span',
-	        { className: 'clock-text' },
-	        this.formatSeconds(totalSeconds)
-	      )
-	    );
-	  }
-	});
-
-	module.exports = Clock;
-
-/***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26182,7 +26296,7 @@
 	module.exports = CountdownForm;
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
